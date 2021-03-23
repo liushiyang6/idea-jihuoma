@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -19,7 +20,9 @@ func downloadFile(url string) {
 	fmt.Println("开始获取激活码...")
 	res, err := http.Get(url)
 	if err != nil {
-		panic(err)
+		print("网络异常!")
+		time.Sleep(time.Second * 2)
+		return
 	}
 	f, err := os.Create("jihuoma.zip")
 	if err != nil {
@@ -67,12 +70,12 @@ func downloadFile(url string) {
 		}
 		fmt.Println("开始读取....")
 		s := string(bytes)
-		fmt.Println("激活码:" + s)
 		fmt.Println("开始复制到剪切板....")
 		clipboard.WriteAll(s)
-		fmt.Println("成功!")
+		fmt.Println("成功")
 	}
 	f.Close()
 	r.Close()
 	os.Remove("./jihuoma.zip")
+	time.Sleep(time.Second * 2)
 }
