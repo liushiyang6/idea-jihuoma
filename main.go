@@ -37,7 +37,7 @@ func downloadFile(url string) {
 		return
 	}
 	for _, k := range r.Reader.File {
-		if !strings.HasPrefix(k.Name, "2018.2֮") {
+		if !strings.Contains(k.Name, "2018.2֮") {
 			continue
 		}
 		fmt.Println("开始解压....")
